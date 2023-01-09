@@ -7,99 +7,17 @@
   <title>Document</title>
   <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
-
-  <style>
-    .dragNow {
-      border: solid 1px blue;
-      width: 100px;
-    }
-    .task_value {
-    height: 1.5rem;
-    }
-
-   .task_submit {
-   height: 2rem;
-   }
-
-   #table {
-   background-color: papayawhip;
-   width: 50%;
-   height: 400px;
-   border-radius: 1rem;
-   margin-top: 2rem;
-   }
-
-  li {
-  margin: 2rem 2rem 2rem 0;
-  display: flex;
-  justify-content: space-between;
-  }
-
-  ul{
-    overflow-x: hidden;
-  }
-  /* overflow-x:　動かない・・？ */
-
-  </style>
+  <script type="text/javascript" src="./index.js"></script>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <form>
-    <input class="task_value" type="text" />
-    <button class="task_submit" type="button">Add Task</button>
+    <input id="task-text" type="text" />
+    <button id="submit-button" type="button">Add Task</button>
   </form>
-
   <div id="table">
-  <ul class="task_list">
+  <ul id="task-list">
   </ul>
 </div>
-<script>
-  'use strict'
-const taskValue = document.getElementsByClassName('task_value')[0];
-const taskSubmit = document.getElementsByClassName('task_submit')[0];
-const taskList = document.getElementsByClassName('task_list')[0];
-
-// 追加ボタンを作成
-const addTasks = (task) => {
-  // 入力したタスクを追加・表示
-  const listItem = document.createElement('li');
-
-  $(listItem).draggable({
-    start() {
-      $(this).addClass('dragNow');
-    },
-    stop() {
-      $(this).removeClass('dragNow');
-    }
-  });
-  const showItem = taskList.appendChild(listItem);
-  showItem.innerHTML = task;
-
-  // タスクに削除ボタンを付与
-  const deleteButton = document.createElement('button');
-  deleteButton.innerHTML = 'Delete';
-  listItem.appendChild(deleteButton);
-
-  // 削除ボタンをクリックし、イベントを発動（タスクが削除）
-  deleteButton.addEventListener('click', evt => {
-    evt.preventDefault();
-    deleteTasks(deleteButton);
-  });
-};
-
-// 削除ボタンにタスクを消す機能を付与
-const deleteTasks = (deleteButton) => {
-  const chosenTask = deleteButton.closest('li');
-  taskList.removeChild(chosenTask);
-};
-
-// 追加ボタンをクリックし、イベントを発動（タスクが追加）
-taskSubmit.addEventListener('click', evt => {
-  evt.preventDefault();
-  const task = taskValue.value;
-  addTasks(task);
-  taskValue.value = '';
-});
-
-</script>
 </body>
 </html>
